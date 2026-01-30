@@ -1,7 +1,6 @@
 import random
 import math
 
-
 def probability(n, m):
     total = 0
 
@@ -12,7 +11,6 @@ def probability(n, m):
 
     return total / (6 ** n)
         
-
 while True:
     choice = input("Roll the dice? (y/n): ")
 
