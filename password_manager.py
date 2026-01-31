@@ -3,6 +3,7 @@ from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.hazmat.primitives import hashes
 import base64
 import os
+import sys
 
 def write_salt():
     salt = os.urandom(16)
@@ -13,7 +14,7 @@ def load_salt():
     with open("salt.key", "rb") as f:
         return f.read()
     
-if not os.path.exists("key.key"):
+if not os.path.exists("salt.key"):
     write_salt()
 
 def derive_key(password: bytes, salt: bytes) -> bytes:
@@ -30,19 +31,36 @@ salt = load_salt()
 key = derive_key(master_password, salt)
 fer = Fernet(key)
 
+def verify_master_password():
+    if not os.path.exists("passwords.txt"):
+        return True
+    
+    try:
+        with open("passwords.txt", "r") as f:
+            first_line = f.readline().rstrip()
+            if not first_line:
+                return True
+            
+            _, encrypted = first_line.split("|")
+            fer.decrypt(encrypted.encode())
+            return True
+    except InvalidToken:
+        return False
+
+if not verify_master_password():
+    print("Wrong master password. Exiting.")
+    sys.exit(1)
+
 def view():
     if not os.path.exists("passwords.txt"):
         print("No passwords stored yet.")
         return
 
-    try:
-        with open("passwords.txt", "r") as f:
-            for line in f:
-                username, password = line.rstrip().split("|")
-                decrypted = fer.decrypt(password.encode()).decode()
-                print(f"Username: {username} | Password: {decrypted}")
-    except InvalidToken:
-        print("Wrong master password.")
+    with open("passwords.txt", "r") as f:
+        for line in f:
+            username, password = line.rstrip().split("|")
+            decrypted = fer.decrypt(password.encode()).decode()
+            print(f"Username: {username} | Password: {decrypted}")
 
 def add():
     username = input("Account Name: ")
