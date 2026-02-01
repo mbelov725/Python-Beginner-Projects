@@ -66,7 +66,7 @@ def load_salt():
     with open("salt.key", "rb") as f:
         return f.read()
     
-# If this is the firs run, create a salt
+# If this is the first run, create a salt
 if not os.path.exists("salt.key"):
     write_salt()
 
