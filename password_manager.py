@@ -31,6 +31,12 @@ It only stores the encrypted data and salt.
 Note: this project is for educational purposes only.
 This is not a fully secure password manager.
 Do not use it to store any sensitive or personal information.
+
+Required dependency: install the cryptography package before running this program.
+
+Windows / macOS / Linux: python -m pip install cryptography
+
+If that fails on Windows, try: py -m pip install cryptography
 '''
 
 # Fernet handles encryption and decryption
