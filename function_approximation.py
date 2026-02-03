@@ -34,6 +34,8 @@ The best approximation p_n(x) is represented as a linear combination of Legendre
 polynomails of degree up to n. p_n(x) is the sum of c_k*P_k*(2*x - a - b)/(b-a), where
 c_k = <f, P_k>/<P_k, P_k> = (2*k + 1)/(b-a)*integral of f(x)*P_k[(2*x - a - b)/(b - a)]
 on [a,b]
+
+Note: to input e^x enter E**(x) and to input x! input gamma(x+1)
 '''
 
 import sympy as sp
