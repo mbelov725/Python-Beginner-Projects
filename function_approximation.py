@@ -36,6 +36,10 @@ c_k = <f, P_k>/<P_k, P_k> = (2*k + 1)/(b-a)*integral of f(x)*P_k[(2*x - a - b)/(
 on [a,b]
 
 Note: to input e^x enter E**(x) and to input x! input gamma(x+1)
+
+Dependecies: you must have SymPy and SciPy installed before running this program. Run:
+py -m pip install sympy
+py -m pip install scipy
 '''
 
 import sympy as sp
